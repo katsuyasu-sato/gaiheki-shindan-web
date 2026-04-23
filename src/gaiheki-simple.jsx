@@ -586,7 +586,7 @@ export default function App() {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>
               <div>
                 <p style={{ margin: "0 0 6px", fontWeight: 700, fontSize: 13, color: C.navy }}>延床面積（㎡）</p>
-                <input style={{ ...inpStyle, borderColor: aiAnalysis?.estimatedWidth > 0 ? C.gold : C.border }} type="number" placeholder="例：120" value={floorArea} onChange={e => setFloorArea(e.target.value)} />
+                <input style={{ ...inpStyle, borderColor: aiAnalysis?.estimatedWidth > 0 ? C.gold : C.border }} type="text" inputMode="numeric" pattern="[0-9]*" placeholder="例：120" value={floorArea} onChange={e => setFloorArea(e.target.value.replace(/[^0-9]/g, ''))} />
                 <p style={{ margin: "4px 0 0", fontSize: 11, color: C.muted }}>わからない場合は間口×奥行×階数で概算</p>
               </div>
               <div>
@@ -607,7 +607,7 @@ export default function App() {
             </div>
 
             <p style={{ margin: "0 0 8px", fontWeight: 700, fontSize: 13, color: C.navy }}>築年数</p>
-            <input style={inpStyle} type="number" placeholder="例：20" value={age} onChange={e => setAge(e.target.value)} />
+            <input style={inpStyle} type="text" inputMode="numeric" pattern="[0-9]*" placeholder="例：20" value={age} onChange={e => setAge(e.target.value.replace(/[^0-9]/g, ''))} />
             {parseInt(age) >= 30 && <Alert type="warn" title="築30年以上">下地補修費用が別途10〜30万円かかる場合があります。</Alert>}
           </div>
         </Card>
@@ -859,10 +859,59 @@ export default function App() {
           </div>
         </Card>
 
+        {/* LINE登録CTA */}
+        <div style={{
+          background: `linear-gradient(135deg, #06C755, #04a344)`,
+          borderRadius: 16, padding: 24, marginBottom: 16, textAlign: "center",
+          boxShadow: "0 6px 24px rgba(6,199,85,0.35)",
+        }}>
+          <p style={{ margin: "0 0 4px", fontSize: 11, color: "rgba(255,255,255,0.8)", fontWeight: 700, letterSpacing: 1.5 }}>
+            📋 診断結果をLINEで保存する
+          </p>
+          <p style={{ margin: "0 0 6px", fontSize: 18, fontWeight: 900, color: C.white }}>
+            詳細レポートを無料でお届け
+          </p>
+          <p style={{ margin: "0 0 16px", fontSize: 12, color: "rgba(255,255,255,0.85)", lineHeight: 1.8 }}>
+            一級建築士が監修した詳細レポートを<br />
+            LINEでお送りします。訪問営業対策・<br />
+            業者選びのチェックリスト付き。
+          </p>
+          <a href="https://lin.ee/vo2HSc7" target="_blank" rel="noopener noreferrer" style={{
+            display: "inline-flex", alignItems: "center", gap: 10,
+            background: C.white, color: "#06C755",
+            padding: "13px 28px", borderRadius: 50,
+            fontWeight: 900, fontSize: 15, textDecoration: "none",
+            boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
+          }}>
+            <span style={{ fontSize: 20 }}>💬</span>
+            LINEで友達追加する（無料）
+          </a>
+          <p style={{ margin: "12px 0 0", fontSize: 11, color: "rgba(255,255,255,0.7)" }}>
+            「一級建築士カツヤス｜修繕費用相談室」
+          </p>
+        </div>
+
+        {/* 免責表示 */}
+        <div style={{
+          background: C.bg, border: `1px solid ${C.border}`,
+          borderRadius: 12, padding: 16, marginBottom: 16,
+        }}>
+          <p style={{ margin: "0 0 8px", fontWeight: 800, fontSize: 12, color: C.muted }}>
+            ⚠️ ご利用上の注意
+          </p>
+          <p style={{ margin: 0, fontSize: 11, color: C.muted, lineHeight: 1.9 }}>
+            本診断の計算値は、外観写真・手動入力をもとにしたAIによる<strong>参考概算</strong>です。
+            実際の修繕費用は建物の劣化状況・地域・業者・施工内容により大きく異なります。
+            本診断結果を根拠とした契約・発注は行わないでください。
+            正確な費用は一級建築士または専門業者による<strong>現地調査・相見積もり</strong>でご確認ください。
+            本アプリは建築士法に基づく設計・工事監理業務を提供するものではありません。
+          </p>
+        </div>
+
         {/* 精度向上の提案 */}
         <Alert type="info" title="さらに精度の高い診断をご希望の方へ">
-          図面（平面図・立面図）をお持ちの場合は、<strong>図面解析版</strong>でより正確な費用計算が可能です。
-          また、一級建築士による現地調査で詳細な診断をご相談いただけます。
+          図面（平面図・立面図）をお持ちの場合は、図面解析版でより正確な費用計算が可能です。
+          LINEからご相談いただければ、一級建築士が個別に対応いたします。
         </Alert>
 
         <div style={{ display: "flex", gap: 12, marginTop: 16 }}>
@@ -912,19 +961,32 @@ export default function App() {
           </div>
         </Card>
 
-        {/* CTA */}
-        <div style={{ background: `linear-gradient(135deg,${C.navyD},${C.navyL})`, borderRadius: 16, padding: 24, textAlign: "center", marginBottom: 16 }}>
-          <p style={{ margin: "0 0 6px", color: C.goldL, fontSize: 13, fontWeight: 800 }}>一級建築士に無料相談する</p>
-          <p style={{ margin: "0 0 4px", color: "#a8c0e0", fontSize: 12, lineHeight: 1.8 }}>
+        {/* LINE CTA */}
+        <div style={{
+          background: `linear-gradient(135deg, #06C755, #04a344)`,
+          borderRadius: 16, padding: 24, textAlign: "center", marginBottom: 16,
+          boxShadow: "0 6px 24px rgba(6,199,85,0.35)",
+        }}>
+          <p style={{ margin: "0 0 6px", color: "rgba(255,255,255,0.85)", fontSize: 13, fontWeight: 800 }}>
+            一級建築士に直接相談する
+          </p>
+          <p style={{ margin: "0 0 16px", color: "rgba(255,255,255,0.85)", fontSize: 12, lineHeight: 1.8 }}>
             この診断結果をもとに、現地調査・<br />
             適正見積もりの確認をご相談できます
           </p>
-          <p style={{ margin: "0 0 16px", color: "#7090b0", fontSize: 11 }}>
-            ※ 図面をお持ちの場合はより精度の高い診断も可能です
+          <a href="https://lin.ee/vo2HSc7" target="_blank" rel="noopener noreferrer" style={{
+            display: "inline-flex", alignItems: "center", gap: 10,
+            background: C.white, color: "#06C755",
+            padding: "13px 28px", borderRadius: 50,
+            fontWeight: 900, fontSize: 15, textDecoration: "none",
+            boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
+          }}>
+            <span style={{ fontSize: 20 }}>💬</span>
+            LINEで無料相談する
+          </a>
+          <p style={{ margin: "10px 0 0", fontSize: 11, color: "rgba(255,255,255,0.7)" }}>
+            「一級建築士カツヤス｜修繕費用相談室」
           </p>
-          <button style={{ background: `linear-gradient(135deg,${C.gold},${C.goldL})`, color: C.navyD, border: "none", padding: "14px 36px", borderRadius: 10, fontWeight: 900, fontSize: 15, cursor: "pointer" }}>
-            無料相談を申し込む
-          </button>
         </div>
 
         <div style={{ display: "flex", gap: 12 }}>
@@ -939,14 +1001,14 @@ export default function App() {
 
   return (
     <div style={{ minHeight: "100vh", background: C.bg, fontFamily: font }}>
-      <Header />
+      {Header()}
       <div style={wrap}>
         <StepBar current={step} />
-        {step === 0 && <Step0 />}
-        {step === 1 && <Step1 />}
-        {step === 2 && <Step2 />}
-        {step === 3 && <Step3 />}
-        {step === 4 && <Step4 />}
+        {step === 0 && Step0()}
+        {step === 1 && Step1()}
+        {step === 2 && Step2()}
+        {step === 3 && Step3()}
+        {step === 4 && Step4()}
         <div style={{ textAlign: "center", marginTop: 32, fontSize: 10, color: C.muted }}>
           <p style={{ margin: 0 }}>本アプリの計算値はあくまで概算（参考値）です。正確な費用は現地調査・相見積もりをお勧めします。</p>
           <p style={{ margin: "4px 0 0" }}>一級建築士監修</p>
