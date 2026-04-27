@@ -218,7 +218,7 @@ function ProgressBar({ value, max, color = C.gold }) {
 }
 
 // ===== ステップバー =====
-const STEPS = ["写真撮影", "建物情報", "工事内容", "診断結果", "資金計画"];
+const STEPS = ["建物情報", "工事内容", "診断結果", "資金計画"];
 
 function StepBar({ current }) {
   return (
@@ -250,7 +250,7 @@ function StepBar({ current }) {
 
 // ===== メインアプリ =====
 export default function App() {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(1);
 
   // 写真
   const [photos, setPhotos] = useState([]);
@@ -681,7 +681,6 @@ export default function App() {
         </Card>
 
         <div style={{ display: "flex", gap: 12 }}>
-          <button onClick={() => setStep(0)} style={{ padding: "12px 20px", borderRadius: 8, fontSize: 14, fontWeight: 700, border: `1.5px solid ${C.border}`, background: C.white, color: C.navy, cursor: "pointer" }}>← 戻る</button>
           <button onClick={() => setStep(2)} disabled={!floorArea || !age} style={{
             flex: 1, padding: "13px", borderRadius: 8, fontSize: 15, fontWeight: 800,
             border: "none", cursor: !floorArea || !age ? "not-allowed" : "pointer",
@@ -991,7 +990,7 @@ export default function App() {
 
         <div style={{ display: "flex", gap: 12 }}>
           <button onClick={() => setStep(3)} style={{ padding: "12px 16px", borderRadius: 8, fontSize: 13, fontWeight: 700, border: `1.5px solid ${C.border}`, background: C.white, color: C.navy, cursor: "pointer" }}>← 診断に戻る</button>
-          <button onClick={() => { setStep(0); setPhotos([]); setPreviews([]); setAiAnalysis(null); setFloorArea(""); setAge(""); setResult(null); }} style={{ flex: 1, padding: "12px 16px", borderRadius: 8, fontSize: 13, fontWeight: 700, border: `1.5px solid ${C.border}`, background: C.white, color: C.navy, cursor: "pointer" }}>
+          <button onClick={() => { setStep(1); setPhotos([]); setPreviews([]); setAiAnalysis(null); setFloorArea(""); setAge(""); setResult(null); }} style={{ flex: 1, padding: "12px 16px", borderRadius: 8, fontSize: 13, fontWeight: 700, border: `1.5px solid ${C.border}`, background: C.white, color: C.navy, cursor: "pointer" }}>
             🔄 最初からやり直す
           </button>
         </div>
@@ -1003,7 +1002,7 @@ export default function App() {
     <div style={{ minHeight: "100vh", background: C.bg, fontFamily: font }}>
       {Header()}
       <div style={wrap}>
-        <StepBar current={step} />
+        <StepBar current={step - 1} />
         {step === 0 && Step0()}
         {step === 1 && Step1()}
         {step === 2 && Step2()}
