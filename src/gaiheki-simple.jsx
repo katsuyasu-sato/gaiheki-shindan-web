@@ -357,6 +357,9 @@ export default function App() {
     const years = pp.years;
     const yearsLeft = Math.max(1, years - (ag % years));
     const midTotal = Math.round((totalMin + totalMax) / 2);
+    // 未修繕超過の判定
+    const isOverdue = ag >= years;
+    const overdueYears = isOverdue ? ag % years : 0;
 
     setResult({
       wallA, roofA, sealLen,
@@ -371,6 +374,7 @@ export default function App() {
       monthly: Math.round(midTotal / (yearsLeft * 12)),
       paintLabel: pp.label, paintYears: years,
       roofMatLabel: rm.label,
+      isOverdue, overdueYears,
     });
     setStep(3);
   };
@@ -923,7 +927,7 @@ export default function App() {
   // ===== STEP 4: 資金計画 =====
   const Step4 = () => {
     if (!result) return null;
-    const { yearsLeft, monthly, midTotal, paintYears, paintLabel, total } = result;
+    const { yearsLeft, monthly, midTotal, paintYears, paintLabel, total, isOverdue, overdueYears } = result;
     const urgency = yearsLeft <= 2 ? "ng" : yearsLeft <= 5 ? "warn" : "ok";
     const plans = [
       { label: "最低ライン", monthly: Math.round(total.min / (yearsLeft * 12)), total: total.min },
@@ -933,8 +937,20 @@ export default function App() {
 
     return (
       <div>
-        <Alert type={urgency} title={yearsLeft <= 2 ? `⚡ 修繕時期が迫っています（あと約${yearsLeft}年）` : yearsLeft <= 5 ? `⚠️ 修繕時期まであと約${yearsLeft}年` : `✅ 修繕時期まであと約${yearsLeft}年`}>
-          {paintLabel}の耐用年数（約{paintYears}年）を基準に算出しています。
+        {isOverdue && overdueYears > 0 && (
+          <Alert type="ng" title={`⚠️ 修繕を行っていない場合、すでに${overdueYears}年超過しています`}>
+            築{age}年で一度も外壁・屋根の修繕を行っていない場合、修繕時期（{paintLabel}：約{paintYears}年）をすでに超過しています。
+            放置すると雨漏り・外壁剥離・屋根腐食のリスクが高まります。早急に専門業者への点検をお勧めします。
+          </Alert>
+        )}
+        {isOverdue && overdueYears === 0 && (
+          <Alert type="warn" title={`⚠️ 修繕時期の目安に達しています`}>
+            築{age}年は{paintLabel}（耐用年数：約{paintYears}年）の節目にあたります。
+            まだ修繕を行っていない場合は、早めの点検・見積もりをお勧めします。
+          </Alert>
+        )}
+        <Alert type={urgency} title={yearsLeft <= 2 ? `⚡ 次の修繕時期まであと約${yearsLeft}年` : yearsLeft <= 5 ? `⚠️ 修繕時期まであと約${yearsLeft}年` : `✅ 修繕時期まであと約${yearsLeft}年`}>
+          {paintLabel}の耐用年数（約{paintYears}年）を基準に算出しています。{isOverdue ? "※過去に修繕済みの場合の次回目安です。" : ""}
         </Alert>
 
         <Card style={{ marginTop: 16, marginBottom: 16 }}>
