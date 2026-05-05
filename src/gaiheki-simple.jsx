@@ -889,7 +889,10 @@ export default function App() {
             <span style={{ fontSize: 20 }}>💬</span>
             LINEで友達追加する（無料）
           </a>
-          <p style={{ margin: "12px 0 0", fontSize: 11, color: "rgba(255,255,255,0.7)" }}>
+          <p style={{ margin: "12px 0 4px", fontSize: 13, fontWeight: 800, color: C.white }}>
+            追加後に「外壁修繕」と送ってください
+          </p>
+          <p style={{ margin: 0, fontSize: 11, color: "rgba(255,255,255,0.7)" }}>
             「カツヤス」@ 一級建築士に直接相談
           </p>
         </div>
@@ -998,7 +1001,10 @@ export default function App() {
             <span style={{ fontSize: 20 }}>💬</span>
             LINEで無料相談する
           </a>
-          <p style={{ margin: "10px 0 0", fontSize: 11, color: "rgba(255,255,255,0.7)" }}>
+          <p style={{ margin: "10px 0 4px", fontSize: 13, fontWeight: 800, color: C.white }}>
+            追加後に「外壁修繕」と送ってください
+          </p>
+          <p style={{ margin: 0, fontSize: 11, color: "rgba(255,255,255,0.7)" }}>
             「カツヤス」@ 一級建築士に直接相談
           </p>
         </div>
