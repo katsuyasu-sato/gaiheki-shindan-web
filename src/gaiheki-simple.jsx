@@ -879,7 +879,7 @@ export default function App() {
             LINEでお送りします。訪問営業対策・<br />
             業者選びのチェックリスト付き。
           </p>
-          <a href="https://lin.ee/vo2HSc7" target="_blank" rel="noopener noreferrer" style={{
+          <a href="https://line.me/R/ti/p/@491fsuyy" target="_blank" rel="noopener noreferrer" style={{
             display: "inline-flex", alignItems: "center", gap: 10,
             background: C.white, color: "#06C755",
             padding: "13px 28px", borderRadius: 50,
@@ -890,7 +890,7 @@ export default function App() {
             LINEで友達追加する（無料）
           </a>
           <p style={{ margin: "12px 0 0", fontSize: 11, color: "rgba(255,255,255,0.7)" }}>
-            「一級建築士カツヤス｜修繕費用相談室」
+            「カツヤス」@ 一級建築士に直接相談
           </p>
         </div>
 
@@ -988,7 +988,7 @@ export default function App() {
             この診断結果をもとに、現地調査・<br />
             適正見積もりの確認をご相談できます
           </p>
-          <a href="https://lin.ee/vo2HSc7" target="_blank" rel="noopener noreferrer" style={{
+          <a href="https://line.me/R/ti/p/@491fsuyy" target="_blank" rel="noopener noreferrer" style={{
             display: "inline-flex", alignItems: "center", gap: 10,
             background: C.white, color: "#06C755",
             padding: "13px 28px", borderRadius: 50,
@@ -999,7 +999,7 @@ export default function App() {
             LINEで無料相談する
           </a>
           <p style={{ margin: "10px 0 0", fontSize: 11, color: "rgba(255,255,255,0.7)" }}>
-            「一級建築士カツヤス｜修繕費用相談室」
+            「カツヤス」@ 一級建築士に直接相談
           </p>
         </div>
 
